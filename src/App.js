@@ -1,26 +1,19 @@
-import React, { useEffect, useState } from "react";
-
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
+import FilmDetails from "./pages/FilmDetails";
 
 function App() {
-  const [films, setFilms] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:5000/top-films")
-      .then(res => res.json())
-      .then(data => setFilms(data))
-      .catch(console.error);
-  }, []);
-
   return (
-      <div>
-        <h1>Top 5 Films</h1>
-        <ul>
-          {films.map(f => (
-            <li key={f.film_id}>{f.title}
-            </li>
-          ))}
-        </ul>
-      </div>
+    <Router>
+      <Routes>
+        {/* Feature 1: Landing page with Top 5 Films */}
+        <Route path="/" element={<LandingPage />} />
+
+        {/* Feature 2: Film Details page */}
+        <Route path="/films/:filmId" element={<FilmDetails />} />
+      </Routes>
+    </Router>
   );
 }
 

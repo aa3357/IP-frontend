@@ -4,6 +4,7 @@ import LandingPage from "./pages/LandingPage";
 import FilmDetails from "./pages/FilmDetails";
 import TopCategories from "./pages/TopCategories";
 import TopCustomers from "./pages/TopCustomers";
+import TopFilmsRevenue from "./pages/TopFilmsRevenue";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         <Route path="/categories" element={<TopCategories />} />
         {/* Feature 4: Top Customers page */}
         <Route path="/customers" element={<TopCustomers />} />
+        {/* Feature 5: Top Films by Revenue page */}
+        <Route path="/films/revenue" element={<TopFilmsRevenue />} />
       </Routes>
     </Router>
   );

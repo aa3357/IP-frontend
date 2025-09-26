@@ -17,7 +17,7 @@ function App() {
         {/* Feature 3: Top Categories page */}
         <Route path="/categories" element={<TopCategories />} />
         {/* Feature 4: Top Customers page */}
-        
+        <Route path="/customers" element={<TopCustomers />} />
       </Routes>
     </Router>
   );

@@ -5,6 +5,7 @@ import FilmDetails from "./pages/FilmDetails";
 import TopCategories from "./pages/TopCategories";
 import TopCustomers from "./pages/TopCustomers";
 import TopFilmsRevenue from "./pages/TopFilmsRevenue";
+import CustomersPage from "./pages/CustomersPage";
 
 function App() {
   return (
@@ -18,9 +19,11 @@ function App() {
         {/* Feature 3: Top Categories page */}
         <Route path="/categories" element={<TopCategories />} />
         {/* Feature 4: Top Customers page */}
-        <Route path="/customers" element={<TopCustomers />} />
+        <Route path="/top_customers" element={<TopCustomers />} />
         {/* Feature 5: Top Films by Revenue page */}
         <Route path="/films/revenue" element={<TopFilmsRevenue />} />
+        {/* Feature 6: Customer List page */}
+        <Route path="/customers" element={<CustomersPage />} />
       </Routes>
     </Router>
   );

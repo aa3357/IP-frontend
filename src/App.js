@@ -7,6 +7,7 @@ import TopCustomers from "./pages/TopCustomers";
 import TopFilmsRevenue from "./pages/TopFilmsRevenue";
 import CustomersPage from "./pages/CustomersPage";
 import ActorDetails from "./pages/ActorDetails";
+import AddCustomerPage from "./pages/AddCustomerPage"; 
 
 function App() {
   return (
@@ -27,6 +28,8 @@ function App() {
         <Route path="/customers" element={<CustomersPage />} />
         {/* Feature 7: Actor Details page */}
         <Route path="/actors/:actorId" element={<ActorDetails />} />
+        {/* Feature 8: Add Customer page */}
+        <Route path="/customers/add" element={<AddCustomerPage />} />
       </Routes>
     </Router>
   );

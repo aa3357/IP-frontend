@@ -1,26 +1,35 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function CustomersPage() {
   const [customers, setCustomers] = useState([]);
   const [page, setPage] = useState(1);
   const [filters, setFilters] = useState({ id: "", first_name: "", last_name: "" });
+  const navigate = useNavigate();
+
+  const fetchCustomers = async () => {
+    try {
+      const query = new URLSearchParams({
+        page,
+        per_page: 10,
+        ...filters,
+      }).toString();
+
+      const res = await fetch(`http://localhost:5000/api/customers?${query}`);
+      const data = await res.json();
+      setCustomers(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
-    const query = new URLSearchParams({
-      page,
-      per_page: 10,
-      ...filters,
-    }).toString();
-
-    fetch(`http://localhost:5000/api/customers?${query}`)
-      .then(res => res.json())
-      .then(data => setCustomers(data))
-      .catch(err => console.error(err));
+    fetchCustomers();
   }, [page, filters]);
 
   const handleChange = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
-    setPage(1); // reset to first page when filtering
+    setPage(1);
   };
 
   return (
@@ -52,9 +61,14 @@ function CustomersPage() {
         />
       </div>
 
+      {/* ➕ Button to go to add page */}
+      <button onClick={() => navigate("/customers/add")}>
+        ➕ Add Customer
+      </button>
+
       {/* 📋 List of customers */}
       <ul>
-        {customers.map(c => (
+        {customers.map((c) => (
           <li key={c.customer_id}>
             {c.customer_id} - {c.first_name} {c.last_name} ({c.email})
           </li>

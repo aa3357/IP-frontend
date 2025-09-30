@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function CustomersPage() {
+
   const [customers, setCustomers] = useState([]);
   const [page, setPage] = useState(1);
   const [filters, setFilters] = useState({ id: "", first_name: "", last_name: "" });
@@ -16,10 +17,16 @@ function CustomersPage() {
       }).toString();
 
       const res = await fetch(`http://localhost:5000/api/customers?${query}`);
-      const data = await res.json();
-      setCustomers(data);
+      if (res.ok) {
+        const data = await res.json();
+        setCustomers(data);
+      } else {
+        console.error("Failed to fetch customers");
+        setCustomers([]);
+      }
     } catch (err) {
       console.error(err);
+      setCustomers([]);
     }
   };
 
@@ -33,10 +40,10 @@ function CustomersPage() {
   };
 
   return (
-    <div>
+    <div className="page-container">
       <h2>Customers</h2>
 
-      {/* 🔍 Filter form */}
+      {/* Filter form */}
       <div>
         <input
           type="text"
@@ -61,12 +68,12 @@ function CustomersPage() {
         />
       </div>
 
-      {/* ➕ Button to go to add page */}
+      {/* Button to go to add page */}
       <button onClick={() => navigate("/customers/add")}>
-        ➕ Add Customer
+        Add Customer
       </button>
 
-      {/* 📋 List of customers */}
+      {/* List of customers */}
       <ul>
         {customers.map((c) => (
           <li key={c.customer_id}>
@@ -75,7 +82,7 @@ function CustomersPage() {
         ))}
       </ul>
 
-      {/* ⏩ Pagination */}
+      {/* Pagination */}
       <button disabled={page === 1} onClick={() => setPage(page - 1)}>
         Previous
       </button>
